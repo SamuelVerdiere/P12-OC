@@ -20,13 +20,13 @@ public with sharing class ContractManager {
                 //set the field and value on the Contract SObject
             thisContract.put(fieldName, params.get(fieldName));
             if(fieldName == 'Status') {
-
+                thisContract.Status = params.get(Status);
             }
             if(fieldName == 'StartDate') {
-
+                thisContract.StartDate = params.get(StartDate);
             }
             if(fieldName == 'ContractTerm') {
-
+                thisContract.ContractTerm = params.get(ContractTerm);
             }
         }
         update thisContract;

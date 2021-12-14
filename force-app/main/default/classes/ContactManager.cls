@@ -1,16 +1,16 @@
 @RestResource(urlMapping='/Contacts/*')
 public with sharing class ContactManager {
     @HttpPost
-    public static Id createContact(String enterName, String enterMail, String enterPhone) {
+    public static Id createContact(String enterFirstName, String enterLastName, String enterMail, String enterPhone) {
             //get email from existing contact in SF
-        List<Contact> existingContact = [SELECT Id, Name FROM Contact WHERE Email=:enterMail];
+        List<Contact> existingContact = [SELECT Id, FirstName, LastName FROM Contact WHERE Email=:enterMail];
             //if contact exists in SF, send Id to AXG
         if (existingContact.size() >0) {
             return existingContact[0].Id;
         }
         //else if contact doesn't exist in SF, create it and return its id
         else {
-            Contact newContact = new Contact(Name=enterName, Email=enterMail, Phone=enterPhone);
+            Contact newContact = new Contact(FirstName=enterFirstName, LastName=enterLastName, Email=enterMail, Phone=enterPhone);
             insert newContact;
             return newContact.Id;
         }
@@ -21,21 +21,25 @@ public with sharing class ContactManager {
             //get the contact that is to be modified
         RestRequest request = RestContext.request;
         String idContact = request.requestURI.substring(request.requestURI.lastIndexOf('/')+1);
-        Contact myContact = [SELECT Id FROM Contact WHERE Id =: idContact];
+        Contact myContact = [SELECT Id, Email, Name, Phone FROM Contact WHERE Id =: idContact];
             //Deserialise the JSON string into name-value pairs
-        Map<String, Object> params = (Map<String, Object>)JSON.DeserialiseUntyped(request.requestbody.tostring());
+        Map<String, Object> params = (Map<String, Object>)JSON.DeserialiseUntyped(request.requestbody.tostring()); //on récup l'objet au niveau du webservice;
+        //la nouvelle valeur qu'on va changer dans sF
         //iterate through each parameter field and value
         for(String fieldName : params.keySet()){
             //set the field and value on the Contact SObject
             myContact.put(fieldName, params.get(fieldName));
             if(fieldName == 'Email') {
-
+                myContact.Email = params.get(fieldName); //Get fieldname contient la nouvelle valeur
             } 
-            if(fieldName == 'Name') {
-
+            if(fieldName == 'FirstName') {
+                myContact.FirstName = params.get(fieldName);
+            }
+            if(fieldName == 'LastName') {
+                myContact.LastName = params.get(fieldName);
             }
             if(fieldName == 'Phone') {
-
+                myContact.Phone = params.get(fieldName);
             }
         }
         update myContact;
