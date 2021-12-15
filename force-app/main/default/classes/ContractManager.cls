@@ -1,14 +1,14 @@
 @RestResource(urlMapping='/Contracts/*')
-public with sharing class ContractManager {
+global with sharing class ContractManager {
     @HttpPost
-    public static Id createContract(String enterAccount, String enterStatus, Date enterStart, Integer enterTerm) {
+    global static Id createContract(String enterAccount, String enterStatus, Date enterStart, Integer enterTerm) {
         //when creating a contract in AXG, save it in SF, & save SF's id in AXG
         Contract myContract = new Contract(AccountId=enterAccount, Status=enterStatus, StartDate=enterStart, ContractTerm=enterTerm);
         insert myContract;
         return myContract.Id;
     }
     @HttpPatch
-    public static Id updateContract() {
+    global static Id updateContract() {
             //get the contract that is to be modifier
         RestRequest request = RestContext.request;
         String idContract = request.requestURI.substring(request.requestURI.lastIndexOf('/')+1);
@@ -20,13 +20,16 @@ public with sharing class ContractManager {
                 //set the field and value on the Contract SObject
             thisContract.put(fieldName, params.get(fieldName));
             if(fieldName == 'Status') {
-                thisContract.Status = params.get(Status);
+                String thatField = (String)thisContract.get('Status');
+                thatField = (String)params.get(fieldName);
             }
             if(fieldName == 'StartDate') {
-                thisContract.StartDate = params.get(StartDate);
+                String thisField = (String)thisContract.get('StartDate');
+                thisField = (String)params.get(fieldName);
             }
             if(fieldName == 'ContractTerm') {
-                thisContract.ContractTerm = params.get(ContractTerm);
+                String theseField = (String)thisContract.get('ContractTerm');
+                theseField = (String)params.get(fieldName);
             }
         }
         update thisContract;

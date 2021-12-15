@@ -1,7 +1,7 @@
 @RestResource(urlMapping='/Contacts/*')
-public with sharing class ContactManager {
+global with sharing class ContactManager {
     @HttpPost
-    public static Id createContact(String enterFirstName, String enterLastName, String enterMail, String enterPhone) {
+    global static Id createContact(String enterFirstName, String enterLastName, String enterMail, String enterPhone) {
             //get email from existing contact in SF
         List<Contact> existingContact = [SELECT Id, FirstName, LastName FROM Contact WHERE Email=:enterMail];
             //if contact exists in SF, send Id to AXG
@@ -17,43 +17,49 @@ public with sharing class ContactManager {
     }
 
     @HttpPatch
-    public static updateContactInSF() {
+    global static Contact updateContactInSF(String email, String enterFirstName, String enterLastName, String phone) {
             //get the contact that is to be modified
         RestRequest request = RestContext.request;
         String idContact = request.requestURI.substring(request.requestURI.lastIndexOf('/')+1);
         Contact myContact = [SELECT Id, Email, Name, Phone FROM Contact WHERE Id =: idContact];
             //Deserialise the JSON string into name-value pairs
-        Map<String, Object> params = (Map<String, Object>)JSON.DeserialiseUntyped(request.requestbody.tostring()); //on récup l'objet au niveau du webservice;
+        Map<String, Object> params = (Map<String, Object>)JSON.deserializeUntyped(request.requestBody.toString());   
+        //on récup l'objet au niveau du webservice;
         //la nouvelle valeur qu'on va changer dans sF
         //iterate through each parameter field and value
         for(String fieldName : params.keySet()){
             //set the field and value on the Contact SObject
             myContact.put(fieldName, params.get(fieldName));
             if(fieldName == 'Email') {
-                myContact.Email = params.get(fieldName); //Get fieldname contient la nouvelle valeur
+               String thatField = (String)myContact.get('Email');
+               thatField = (String)params.get(fieldName); //Get fieldname contient la nouvelle valeur
             } 
             if(fieldName == 'FirstName') {
-                myContact.FirstName = params.get(fieldName);
+                String thisField = (String)myContact.get('FirstName');
+                thisField = (String)params.get(fieldName);
             }
             if(fieldName == 'LastName') {
-                myContact.LastName = params.get(fieldName);
+                String thusField = (String)myContact.get('LastName');
+                thusField = (String)params.get(fieldName);
             }
             if(fieldName == 'Phone') {
-                myContact.Phone = params.get(fieldName);
+                String thoseField = (String)myContact.get('Phone');
+                thoseField= (String)params.get(fieldName);
             }
         }
         update myContact;
-        return myContact.Id;
+        return myContact;
     }
 
     @HttpDelete
-    public static deactivateContactInSF() {
+    global static Contact deactivateContactInSF() {
         //get contact the user wants to delete
         RestRequest request = RestContext.request;
         String idContact = request.requestURI.substring(
             request.requestURI.lastIndexOf('/')+1);
-        Contact myContact = [SELECT Id FROM Contact WHERE Id = :idContact];
+        Contact myContact = [SELECT Id, Status__c FROM Contact WHERE Id = :idContact];
         //only deactivate contact
-        myContact.status__c = deactivated;
+        myContact.status__c = 'false';
+        return myContact;
     }     
 }
