@@ -17,7 +17,7 @@ global with sharing class ContactManager {
     }
 
     @HttpPatch
-    global static Contact updateContactInSF(String email, String enterFirstName, String enterLastName, String phone) {
+    global static Id updateContactInSF() {
             //get the contact that is to be modified
         RestRequest request = RestContext.request;
         String idContact = request.requestURI.substring(request.requestURI.lastIndexOf('/')+1);
@@ -48,18 +48,19 @@ global with sharing class ContactManager {
             }
         }
         update myContact;
-        return myContact;
+        return myContact.Id;
     }
 
     @HttpDelete
-    global static Contact deactivateContactInSF() {
+    global static Id deactivateContactInSF() {
         //get contact the user wants to delete
         RestRequest request = RestContext.request;
         String idContact = request.requestURI.substring(
             request.requestURI.lastIndexOf('/')+1);
         Contact myContact = [SELECT Id, Status__c FROM Contact WHERE Id = :idContact];
         //only deactivate contact
-        myContact.status__c = 'false';
-        return myContact;
+        myContact.status__c = 'Deactivated';
+        update myContact;
+        return myContact.Id;
     }     
 }
