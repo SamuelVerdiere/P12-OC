@@ -33,21 +33,15 @@ public with sharing class ContractManagerTest {
          request.requestURI = 'https://mindful-bear-gjovpb-dev-ed.my.salesforce.com/services/apexrest/Contracts/' + oldContract.Id;
          request.httpMethod = 'PATCH';
          request.addHeader('Content-Type', 'application/json');
-         request.requestBody = Blob.valueOf('{"Status":"Activated", "StartDate":"12-10-2021", "ContractTerm":"6"}');
+         request.requestBody = Blob.valueOf('{"Status":"Activated", "StartDate":"12/11/2022", "ContractTerm":"6"}');
          RestContext.request = request;
          Id thisContractId = ContractManager.updateContract();
          System.assert(thisContractId != null);
          Contract newContract =[SELECT AccountID, Status, StartDate, ContractTerm FROM Contract WHERE Id=:thisContractId LIMIT 1];
          System.assertNotEquals(oldContract.Status, newContract.Status);
+         System.assertNotEquals(oldContract.StartDate, newContract.StartDate);
     }
-//         Contact newContact = [SELECT Id, FirstName, LastName, Email, Phone FROM Contact where Id=:thisContactId LIMIT 1];
-//         System.assert(newContact != null);
-//         System.assertEquals(newContact.FirstName, 'Traffalgar D');
-//         System.assertEquals(oldContact.FirstName, 'Marshall D');
-//         System.assertNotEquals(oldContact.FirstName, newcontact.FirstName);
-//         System.assertNotEquals(oldContact.LastName, newcontact.LastName);
-//         System.assertNotEquals(oldContact.Email, newcontact.Email);
-//         System.assertNotEquals(oldContact.Phone, newcontact.Phone);
-//         System.assertEquals(oldContact.Id, newcontact.Id);
-//     }
+
+
+
 }

@@ -14,23 +14,23 @@ global with sharing class ContractManager {
         String idContract = request.requestURI.substring(request.requestURI.lastIndexOf('/')+1);
         Contract thisContract = [SELECT Id, Status, StartDate, ContractTerm FROM Contract WHERE Id =: idContract];
             //Deserialise the JSON string in to name-value pairs
-            String timedate = String.valueOfGmt(thisContract.StartDate);
+            //String timedate = String.valueOfGmt(thisContract.StartDate);
             Map<String, Object> params = (Map<String, Object>)JSON.deserializeUntyped(request.requestBody.toString());
             //iterate through each parameter field and value
             for(String fieldName : params.keySet()){
                 //set the field and value on the Contract SObject
-            thisContract.put(fieldName, params.get(fieldName));
             if(fieldName == 'Status') {
-                String thatField = (String)thisContract.get('Status');
-                thatField = (String)params.get(fieldName);
-            }
+                 String thatField = (String)params.get('Status');
+                 thatField = (String)params.get(fieldName);
+                 thisContract.put(fieldName, thatField); //on convertit et on ajoute la nouvelle valeur dans l'objet thatfield/thiscontact
+             }
             if(fieldName == 'StartDate') {
-                String thisField = (String)thisContract.get(timedate);
-                thisField = (String)params.get(fieldName);
+                Date thisFieldDate = date.parse((String)params.get('StartDate'));
+                thisContract.put(fieldName, thisFieldDate); //si date = on récupère format string/on convertit en date
             }
             if(fieldName == 'ContractTerm') {
-                String theseField = (String)thisContract.get('ContractTerm');
-                theseField = (String)params.get(fieldName);
+                Integer theseField = Integer.valueOf((String)params.get('ContractTerm'));
+                thisContract.put(fieldName, theseField);
             }
         }
         update thisContract;
