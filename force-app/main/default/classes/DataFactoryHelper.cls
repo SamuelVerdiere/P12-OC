@@ -2,7 +2,7 @@
 public with sharing class DataFactoryHelper {
         public static Id createTestRecord() {
             // Create test record
-            Contact contactTest = new Contact(FirstName='Marshall D', LastName='Teach',Email='pirate@onepiece.com',Phone='666-5142');
+            Contact contactTest = new Contact(FirstName='Marshall D', LastName='Teach',Email='pirate@onepiece.com',Phone='666-5142', Password__c='azerty');
             insert contactTest;
             return contactTest.Id;
         }

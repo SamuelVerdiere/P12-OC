@@ -14,10 +14,9 @@ global with sharing class ContractManager {
         String idContract = request.requestURI.substring(request.requestURI.lastIndexOf('/')+1);
         Contract thisContract = [SELECT Id, Status, StartDate, ContractTerm FROM Contract WHERE Id =: idContract];
             //Deserialise the JSON string in to name-value pairs
-            //String timedate = String.valueOfGmt(thisContract.StartDate);
-            Map<String, Object> params = (Map<String, Object>)JSON.deserializeUntyped(request.requestBody.toString());
+        Map<String, Object> params = (Map<String, Object>)JSON.deserializeUntyped(request.requestBody.toString());
             //iterate through each parameter field and value
-            for(String fieldName : params.keySet()){
+        for(String fieldName : params.keySet()){
                 //set the field and value on the Contract SObject
             if(fieldName == 'Status') {
                  String thatField = (String)params.get('Status');
@@ -25,14 +24,14 @@ global with sharing class ContractManager {
                  thisContract.put(fieldName, thatField); //on convertit et on ajoute la nouvelle valeur dans l'objet thatfield/thiscontact
              }
             if(fieldName == 'StartDate') {
+                //if Date = we gather the string format and convert it to date
                 Date thisFieldDate = date.parse((String)params.get('StartDate'));
-                thisContract.put(fieldName, thisFieldDate); //si date = on récupère format string/on convertit en date
+                thisContract.put(fieldName, thisFieldDate); 
             }
             if(fieldName == 'ContractTerm') {
                 Integer theseField = Integer.valueOf((String)params.get('ContractTerm'));
                 thisContract.put(fieldName, theseField);
-            }
-        }
+            }}
         update thisContract;
         return thisContract.Id;
     }
