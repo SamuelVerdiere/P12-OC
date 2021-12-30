@@ -41,7 +41,4 @@ public with sharing class ContractManagerTest {
          System.assertNotEquals(oldContract.Status, newContract.Status);
          System.assertNotEquals(oldContract.StartDate, newContract.StartDate);
     }
-
-
-
 }

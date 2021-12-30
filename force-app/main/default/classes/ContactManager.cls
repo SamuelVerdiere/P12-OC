@@ -20,7 +20,7 @@ global with sharing class ContactManager {
             //get the contact that is to be modified
         RestRequest request = RestContext.request;
         String idContact = request.requestURI.substring(request.requestURI.lastIndexOf('/')+1);
-        Contact myContact = [SELECT Id, Email, Name, Phone, password__c FROM Contact WHERE Id =: idContact];
+        Contact myContact = [SELECT Id, Email, FirstName, LastName, Phone, password__c FROM Contact WHERE Id =: idContact];
             //Deserialise the JSON string into name-value pairs
         Map<String, Object> params = (Map<String, Object>)JSON.deserializeUntyped(request.requestBody.toString());   
         //get the object from the web service and the new value to change in SF
