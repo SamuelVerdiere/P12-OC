@@ -1,5 +1,6 @@
 @RestResource(urlMapping='/Accounts/*')
 global with sharing class AccountManager {
+    
     @HttpGet
     global static Id getAccount() {
         RestRequest req = RestContext.request;

@@ -1,5 +1,6 @@
 @isTest
 public with sharing class AccountManagerTest {
+
     @isTest
     public static void checkIfIdIsReturned() {
         //get the id to compare later
