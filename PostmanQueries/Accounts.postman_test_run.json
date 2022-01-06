@@ -1,0 +1,62 @@
+{
+	"id": "528783be-58b6-453f-930a-e79eb7827a90",
+	"name": "Accounts",
+	"timestamp": "2022-01-06T15:36:45.128Z",
+	"collection_id": "18467254-cb91078d-a1b3-4785-9cf5-a45baaf71742",
+	"folder_id": 0,
+	"environment_id": "0",
+	"totalPass": 0,
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "ebba720e-3fd6-4044-85cc-ec09c89f7192",
+			"name": "Create Account",
+			"url": "https://mindful-bear-gjovpb-dev-ed.my.salesforce.com//services/data/v51.0/sobjects/Account/",
+			"time": 139,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				139
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "a2a398fd-bee6-44f2-a3db-6c3d144c08a3",
+			"name": "Update Contact",
+			"url": "https://mindful-bear-gjovpb-dev-ed.my.salesforce.com//services/data/v51.0/sobjects/Account/0017Q000002wxjHQAQ",
+			"time": 136,
+			"responseCode": {
+				"code": 204,
+				"name": "No Content"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				136
+			],
+			"allTests": [
+				{}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 275,
+	"collection": {
+		"requests": [
+			{
+				"id": "ebba720e-3fd6-4044-85cc-ec09c89f7192",
+				"method": "POST"
+			},
+			{
+				"id": "a2a398fd-bee6-44f2-a3db-6c3d144c08a3",
+				"method": "PATCH"
+			}
+		]
+	}
+}

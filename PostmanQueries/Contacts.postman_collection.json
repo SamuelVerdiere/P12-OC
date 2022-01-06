@@ -13,7 +13,8 @@
 					"script": {
 						"exec": [
 							"const jsonResponse = pm.response.json();\r",
-							"pm.globals.set(\"oauth_token\", jsonResponse.access_token);"
+							"pm.globals.set(\"oauth_token\", jsonResponse.access_token);\r",
+							"pm.globals.set(\"instance_url\", jsonResponse.instance_url);"
 						],
 						"type": "text/javascript"
 					}
@@ -117,7 +118,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\"enterFirstName\": \"Dean\",\r\n\"enterLastName\": \"Martin\",\r\n\"enterMail\": \"DeanMartin@test.com\",\r\n\"enterPass\": \"azerty\"\r\n}"
+					"raw": "{\r\n\"enterFirstName\": \"Lily\",\r\n\"enterLastName\": \"Potter\",\r\n\"enterMail\": \"LilyPotter@test.com\",\r\n\"enterPass\": \"azerty\"\r\n}"
 				},
 				"url": {
 					"raw": "{{webservice_url}}/Contacts/",
@@ -160,7 +161,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"Email\": \"AnotherDeanMail@test.com\",\r\n    \"Password__c\": \"Otherpassword\",\r\n    \"Phone\": \"555-123456\",\r\n    \"Description\" : \"I have changed my description from Postman\" \r\n}"
+					"raw": "{\r\n    \"Email\": \"LilyPotterUpdated@test.com\",\r\n    \"Password__c\": \"Otherpassword\",\r\n    \"Phone\": \"555-1234569\",\r\n    \"Description\" : \"I have changed my description from Postman\" \r\n}"
 				},
 				"url": {
 					"raw": "{{webservice_url}}/Contacts/{{ContactId}}",
