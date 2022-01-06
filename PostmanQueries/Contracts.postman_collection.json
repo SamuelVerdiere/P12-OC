@@ -1,0 +1,158 @@
+{
+	"info": {
+		"_postman_id": "811772d2-f379-4d81-b0a5-bd5698f08696",
+		"name": "Contracts",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Account",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{oauth_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{webservice_url}}/Accounts/{{AccountId}}",
+					"host": [
+						"{{webservice_url}}"
+					],
+					"path": [
+						"Accounts",
+						"{{AccountId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Contract",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const jsonResponse = pm.response.json();\r",
+							"pm.globals.set(\"ContractId\", jsonResponse);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{oauth_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "content-type",
+						"value": "application/json",
+						"type": "default"
+					},
+					{
+						"key": "accept",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"enterAccount\": \"{{AccountId}}\",\r\n\"enterStatus\": \"Draft\",\r\n\"enterStart\": \"2021-8-10\",\r\n\"enterTerm\": \"6\"\r\n}"
+				},
+				"url": {
+					"raw": "{{webservice_url}}/Contracts/",
+					"host": [
+						"{{webservice_url}}"
+					],
+					"path": [
+						"Contracts",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Contract",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{oauth_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "content-type",
+						"value": "application/json",
+						"type": "default"
+					},
+					{
+						"key": "accept",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"Status\": \"Activated\",\r\n\"ContractTerm\": \"6\"\r\n}"
+				},
+				"url": {
+					"raw": "{{webservice_url}}/Contracts/{{ContractId}}",
+					"host": [
+						"{{webservice_url}}"
+					],
+					"path": [
+						"Contracts",
+						"{{ContractId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer"
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

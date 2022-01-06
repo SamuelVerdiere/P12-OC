@@ -1,0 +1,84 @@
+{
+	"id": "32e33ea1-5304-429c-866e-dd523f289895",
+	"name": "Contracts",
+	"timestamp": "2022-01-06T03:38:01.749Z",
+	"collection_id": "18467254-811772d2-f379-4d81-b0a5-bd5698f08696",
+	"folder_id": 0,
+	"environment_id": "0",
+	"totalPass": 0,
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "dbbd03ac-e8aa-4a76-ac6d-5d2db6fa3aa7",
+			"name": "Get Account",
+			"url": "https://mindful-bear-gjovpb-dev-ed.my.salesforce.com/services/apexrest/Accounts/0017Q000005EaSoQAK",
+			"time": 60,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				60
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "581221bf-369d-4ae8-8d27-9a9b7fe6c7f9",
+			"name": "Create Contract",
+			"url": "https://mindful-bear-gjovpb-dev-ed.my.salesforce.com/services/apexrest/Contracts/",
+			"time": 143,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				143
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "3446b0ec-bdae-4b50-a355-72417cae4ddb",
+			"name": "Update Contract",
+			"url": "https://mindful-bear-gjovpb-dev-ed.my.salesforce.com/services/apexrest/Contracts/8007Q000000x3xPQAQ",
+			"time": 112,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				112
+			],
+			"allTests": [
+				{}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 315,
+	"collection": {
+		"requests": [
+			{
+				"id": "dbbd03ac-e8aa-4a76-ac6d-5d2db6fa3aa7",
+				"method": "GET"
+			},
+			{
+				"id": "581221bf-369d-4ae8-8d27-9a9b7fe6c7f9",
+				"method": "POST"
+			},
+			{
+				"id": "3446b0ec-bdae-4b50-a355-72417cae4ddb",
+				"method": "PATCH"
+			}
+		]
+	}
+}

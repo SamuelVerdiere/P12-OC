@@ -2,7 +2,7 @@
 global with sharing class ContractManager {
     @HttpPost
     global static Id createContract(Id enterAccount, String enterStatus, Date enterStart, Integer enterTerm) {
-        //when creating a contract in AXG, save it in SF, & save SF's id in AXG
+        //when creating a contract in AXG, save it in SF, & return SF's id
         Contract myContract = new Contract(AccountId=enterAccount, Status=enterStatus, StartDate=enterStart, ContractTerm=enterTerm);
         insert myContract;
         return myContract.Id;
@@ -21,17 +21,15 @@ global with sharing class ContractManager {
             if(fieldName == 'Status') {
                  String thatField = (String)params.get('Status');
                  thatField = (String)params.get(fieldName);
-                 thisContract.put(fieldName, thatField); //on convertit et on ajoute la nouvelle valeur dans l'objet thatfield/thiscontact
-             }
+                 thisContract.put(fieldName, thatField); }
+                 //convert and add new value in object thatfield/thiscontract
             if(fieldName == 'StartDate') {
                 //if Date = we gather the string format and convert it to date
                 Date thisFieldDate = date.parse((String)params.get('StartDate'));
-                thisContract.put(fieldName, thisFieldDate); 
-            }
+                thisContract.put(fieldName, thisFieldDate); }
             if(fieldName == 'ContractTerm') {
                 Integer theseField = Integer.valueOf((String)params.get('ContractTerm'));
-                thisContract.put(fieldName, theseField);
-            }}
+                thisContract.put(fieldName, theseField);}}
         update thisContract;
         return thisContract.Id;
     }
