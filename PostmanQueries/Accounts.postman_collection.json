@@ -13,7 +13,7 @@
 					"script": {
 						"exec": [
 							"const jsonResponse = pm.response.json();\r",
-							"pm.globals.set(\"AccountId\", jsonResponse.id);"
+							"pm.globals.set(\"AccountId\", jsonResponse);"
 						],
 						"type": "text/javascript"
 					}
@@ -45,20 +45,15 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\"Name\": \"Postman Account2\",\r\n\"Phone\": \"666-5556\",\r\n\"Description\": \"This Account is from Postman\"\r\n}"
+					"raw": "{\r\n\"enterName\": \"Postman Created Account2\"\r\n}"
 				},
 				"url": {
-					"raw": "{{instance_url}}//services/data/v51.0/sobjects/Account/",
+					"raw": "{{webservice_url}}/Accounts/",
 					"host": [
-						"{{instance_url}}"
+						"{{webservice_url}}"
 					],
 					"path": [
-						"",
-						"services",
-						"data",
-						"v51.0",
-						"sobjects",
-						"Account",
+						"Accounts",
 						""
 					]
 				}
@@ -93,20 +88,15 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\"Name\": \"Postman Updated\",\r\n\"Phone\": \"666-123456\",\r\n\"Description\": \"This Account was updated from Postman\"\r\n}"
+					"raw": "{\r\n\"Name\": \"Postman Updated Account2\"\r\n}"
 				},
 				"url": {
-					"raw": "{{instance_url}}//services/data/v51.0/sobjects/Account/{{AccountId}}",
+					"raw": "{{webservice_url}}/Accounts/{{AccountId}}",
 					"host": [
-						"{{instance_url}}"
+						"{{webservice_url}}"
 					],
 					"path": [
-						"",
-						"services",
-						"data",
-						"v51.0",
-						"sobjects",
-						"Account",
+						"Accounts",
 						"{{AccountId}}"
 					]
 				}
